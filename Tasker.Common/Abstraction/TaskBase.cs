@@ -10,7 +10,7 @@ namespace Tasker.Common.Abstraction
 
         protected TaskBase()
         {
-            CronPrefix = new List<string>().ToArray();
+            CronPrefix = new List<string>();
             ModuleParameters = new Dictionary<string, object>();
         }
 
