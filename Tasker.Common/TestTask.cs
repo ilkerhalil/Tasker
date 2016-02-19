@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Diagnostics;
 using Tasker.Common.Abstraction;
 
@@ -22,7 +23,7 @@ namespace Tasker.Common
         public override string JobName { get; } = "TestJob";
         public override void Run()
         {
-            Debug.WriteLine("Merhaba");
+            throw new NotImplementedException();
         }
     }
 }

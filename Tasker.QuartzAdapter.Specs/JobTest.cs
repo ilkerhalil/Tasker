@@ -1,18 +1,28 @@
 ﻿using System;
+using Quartz;
 using Tasker.Common;
 using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs
 {
-    public class JobTest
+    public class JobSpec
     {
+        private IJob job;
+
+        public JobSpec()
+        {
+            job = JobHelper.ImplementIJob(new TestTask());
+        }
+
         [Fact]
         public void CreateIJobFromITask()
         {
-            var job = JobHelper.ImplementIJob(new TestTask());
             Assert.NotNull(job);
-            job.Execute(null);
-            Console.ReadLine();
+        }
+        [Fact]
+        public void RunExecuteIJob()
+        {
+            Assert.Throws<NotImplementedException>(() => job.Execute(null));
         }
     }
 
