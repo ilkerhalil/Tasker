@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Tasker.Common.Abstraction;
 
 namespace Tasker.Common
@@ -16,12 +17,12 @@ namespace Tasker.Common
             CronPrefix.Add("0 0 12 1/1 * ? *");
         }
 
-        public override string ModuleName { get; } = "Test_Module";
+        public override string ModuleName { get; } = "TestModule";
 
-        public override string JobName { get; } = "Test_Job";
+        public override string JobName { get; } = "TestJob";
         public override void Run()
         {
-            Console.WriteLine("Merhaba");
+            Debug.WriteLine("Merhaba");
         }
     }
 }
