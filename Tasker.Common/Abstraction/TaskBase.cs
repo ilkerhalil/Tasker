@@ -2,6 +2,9 @@
 
 namespace Tasker.Common.Abstraction
 {
+    /// <summary>
+    /// Todo:Dökümantasyonu yazılmalı
+    /// </summary>
     public abstract class TaskBase : ITask
     {
         public abstract string ModuleName { get; }

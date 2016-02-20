@@ -8,10 +8,15 @@ namespace Tasker.QuartzAdapter
 {
     public static class JobHelper
     {
-        public static IJob ImplementIJob<T>(T task)
+        /// <summary>
+        /// ToDo:Dokümantasyonu yazılacak.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static IJob ImplementIJob<T>(this T task)
             where T : ITask
         {
-
             var assm = typeof(JobHelper).Assembly.GetName();
             var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assm,
                 AssemblyBuilderAccess.Run);
