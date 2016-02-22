@@ -2,6 +2,9 @@
 
 namespace Tasker.Common.Abstraction
 {
+    /// <summary>
+    /// Todo:Dökümantasyon yazılamalı.
+    /// </summary>
     public interface ITask:IModule
     {
         IList<string> CronPrefix { get; }

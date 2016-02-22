@@ -8,6 +8,13 @@ namespace Tasker.QuartzAdapter
 {
     public static class JobHelper
     {
+        /// <summary>
+        /// ToDo:Dokümantasyonu yazılacak.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static IJob ImplementIJob<T>(this T task)
 
 
         public static IJob ImplementIJob<T>(T task)
