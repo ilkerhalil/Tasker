@@ -14,8 +14,6 @@ namespace Tasker.QuartzAdapter
         /// <typeparam name="T"></typeparam>
         /// <param name="task"></param>
         /// <returns></returns>
-
-
         public static IJob ImplementIJob<T>(this T task)
             where T : ITask
         {
