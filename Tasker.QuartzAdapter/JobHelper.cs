@@ -36,7 +36,7 @@ namespace Tasker.QuartzAdapter
             typeBuilder.DefineMethodOverride(methodBuilder, typeof(IJob).GetMethod("Execute"));
             var targetType = typeBuilder.CreateType();
             return (IJob)Activator.CreateInstance(targetType);
+           
         }
-
     }
 }

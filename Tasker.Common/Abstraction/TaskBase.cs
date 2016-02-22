@@ -15,8 +15,11 @@ namespace Tasker.Common.Abstraction
         {
             CronPrefix = new List<string>();
             ModuleParameters = new Dictionary<string, object>();
+            
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual IList<string> CronPrefix { get; }
 
         public abstract string JobName { get; }
