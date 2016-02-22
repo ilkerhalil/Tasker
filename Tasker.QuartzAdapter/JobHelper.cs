@@ -8,10 +8,11 @@ namespace Tasker.QuartzAdapter
 {
     public static class JobHelper
     {
+
+
         public static IJob ImplementIJob<T>(T task)
             where T : ITask
         {
-
             var assm = typeof(JobHelper).Assembly.GetName();
             var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assm,
                 AssemblyBuilderAccess.Run);
@@ -21,7 +22,10 @@ namespace Tasker.QuartzAdapter
             var methodBuilder = typeBuilder.DefineMethod("Execute",
                 MethodAttributes.Public | MethodAttributes.Virtual,
                 typeof(void),
-                new[] { typeof(IJobExecutionContext) });
+                new[]
+                {
+                    typeof(IJobExecutionContext)
+                });
             var ilGenerator = methodBuilder.GetILGenerator();
             ilGenerator.Emit(OpCodes.Nop);
             ilGenerator.Emit(OpCodes.Ldarg_0);
