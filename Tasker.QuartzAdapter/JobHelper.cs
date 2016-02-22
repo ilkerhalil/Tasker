@@ -14,6 +14,8 @@ namespace Tasker.QuartzAdapter
         /// <typeparam name="T"></typeparam>
         /// <param name="task"></param>
         /// <returns></returns>
+
+
         public static IJob ImplementIJob<T>(this T task)
             where T : ITask
         {
@@ -26,7 +28,10 @@ namespace Tasker.QuartzAdapter
             var methodBuilder = typeBuilder.DefineMethod("Execute",
                 MethodAttributes.Public | MethodAttributes.Virtual,
                 typeof(void),
-                new[] { typeof(IJobExecutionContext) });
+                new[]
+                {
+                    typeof(IJobExecutionContext)
+                });
             var ilGenerator = methodBuilder.GetILGenerator();
             ilGenerator.Emit(OpCodes.Nop);
             ilGenerator.Emit(OpCodes.Ldarg_0);

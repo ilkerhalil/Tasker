@@ -1,6 +1,4 @@
 ﻿using System;
-using System.CodeDom;
-using System.Diagnostics;
 using Tasker.Common.Abstraction;
 
 namespace Tasker.Common
