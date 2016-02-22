@@ -18,9 +18,9 @@ namespace Tasker.Common
             CronPrefix.Add("0 0 12 1/1 * ? *");
         }
 
-        public override string ModuleName { get; } = "TestModule";
+        public override string ModuleName { get { return "TestModule"; } }
 
-        public override string JobName { get; } = "TestJob";
+        public override string JobName { get { return "TestJob"; } }
         public override void Run()
         {
             throw new NotImplementedException();
