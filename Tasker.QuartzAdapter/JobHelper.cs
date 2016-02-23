@@ -30,16 +30,20 @@ namespace Tasker.QuartzAdapter
                 {
                     typeof(IJobExecutionContext)
                 });
+            InjectRunMethod(task, methodBuilder);
+            typeBuilder.DefineMethodOverride(methodBuilder, typeof(IJob).GetMethod("Execute"));
+            var targetType = typeBuilder.CreateType();
+            return (IJob)Activator.CreateInstance(targetType);
+        }
+
+        private static void InjectRunMethod<T>(T task, MethodBuilder methodBuilder) where T : ITask
+        {
             var ilGenerator = methodBuilder.GetILGenerator();
             ilGenerator.Emit(OpCodes.Nop);
             ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Call, task.GetType().GetMethod("Run"));
             ilGenerator.Emit(OpCodes.Nop);
             ilGenerator.Emit(OpCodes.Ret);
-            typeBuilder.DefineMethodOverride(methodBuilder, typeof(IJob).GetMethod("Execute"));
-            var targetType = typeBuilder.CreateType();
-            return (IJob)Activator.CreateInstance(targetType);
         }
-
     }
 }

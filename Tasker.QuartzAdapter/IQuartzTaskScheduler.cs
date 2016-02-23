@@ -15,5 +15,7 @@ namespace Tasker.QuartzAdapter
         void PauseTask(string taskName);
 
         void StopTasks();
+
+        void ShutDown();
     }
 }

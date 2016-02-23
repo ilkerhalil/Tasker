@@ -48,5 +48,11 @@ namespace Tasker.QuartzAdapter
         {
             _scheduler.Standby();
         }
+
+        public void ShutDown()
+        {
+            _scheduler.Shutdown(false);
+
+        }
     }
 }
