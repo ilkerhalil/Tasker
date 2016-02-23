@@ -7,8 +7,8 @@ namespace Tasker.Common
     {
         public TestTask()
         {
-
             Init();
+            Object o = new object();
         }
 
         private void Init()
