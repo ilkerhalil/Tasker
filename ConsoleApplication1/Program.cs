@@ -12,13 +12,9 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            TaskBase tb;
-            TestTask tt;
+            
         }
     }
-    public class TestImp : ITask
-    {
-        public void Run() { }    
-    }
+    
 
 }
