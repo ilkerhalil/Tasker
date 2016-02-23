@@ -6,14 +6,19 @@ using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
 {
+    /// <summary>
+    /// JobHelper sınıfı Jobların başlatılması , çalıştırılması gibi yardımcı metodları ve extension metodları
+    /// implemente eden yardımcı sınıftır
+    /// </summary>
     public static class JobHelper
     {
         /// <summary>
-        /// ToDo:Dokümantasyonu yazılacak.
+        /// Bu metod aldığı <see cref="Tasker.Common.Abstraction.ITask"/> tipindeki objeden Quartz.IJob arayüzünü
+        /// implemente eden bir sınıf oluşturur. Bu sınıf çalışma zamanında dinamik olarak oluşturulur 
+        /// ITask arayüzünü implement eden sınıfların Quartz.net tarafından çalıştırılmasını sağlar
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="task"></param>
-        /// <returns></returns>
+        /// <param name="task"><see cref="Tasker.Common.Abstraction.ITask"/> interface'ini implement eden bir sınıfa ait obje</param>
+        /// <returns><see cref="Quartz.IJob"/> interface'ini implement eden bir sınıfa ait obje</returns>
         public static IJob ImplementIJob<T>(this T task)
             where T : ITask
         {
@@ -35,7 +40,12 @@ namespace Tasker.QuartzAdapter
             var targetType = typeBuilder.CreateType();
             return (IJob)Activator.CreateInstance(targetType);
         }
-
+        /// <summary>
+        /// Bu metod dinamik olarak kod enjeksiyonu yapar
+        /// </summary>
+        /// <typeparam name="T"><see cref="Tasker.Common.Abstraction.ITask"/> yada implementasyonu</typeparam>
+        /// <param name="task"><see cref="Tasker.Common.Abstraction.ITask"/> tipini implemente eden bir sınıfa ait obje</param>
+        /// <param name="methodBuilder"><see cref="System.Reflection.Emit.MethodBuilder"/> tipinde obje</param>
         private static void InjectRunMethod<T>(T task, MethodBuilder methodBuilder) where T : ITask
         {
             var ilGenerator = methodBuilder.GetILGenerator();
