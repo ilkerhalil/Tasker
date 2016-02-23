@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Abstraction\IModule.cs" />
     <Compile Include="Abstraction\ITask.cs" />
+    <Compile Include="Abstraction\ITaskScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Abstraction\TaskBase.cs" />
     <Compile Include="TestTask.cs" />

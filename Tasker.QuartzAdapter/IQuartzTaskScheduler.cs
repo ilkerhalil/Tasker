@@ -4,18 +4,8 @@ using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
 {
-    public interface IQuartzTaskScheduler
+    public interface IQuartzTaskScheduler : ITaskScheduler
     {
-        ITask[] Tasks { get; }
-
-        void StartTasks();
-
         IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails { get; }
-
-        void PauseTask(string taskName);
-
-        void StopTasks();
-
-        void ShutDown();
     }
 }
