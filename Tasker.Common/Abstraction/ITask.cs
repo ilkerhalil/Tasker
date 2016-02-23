@@ -17,7 +17,7 @@ namespace Tasker.Common.Abstraction
         /// Türkçeye çeviren    : Murat Güler
         /// 
         /// GİRİŞ:
-        /// CRON uzun zamandır bilinen çok güçlü ve gücü kanıtlanmış zamanlama yetenekleri olan bir linux aracıdır
+        /// CRON uzun zamandır bilinen, çok güçlü ve gücü kanıtlanmış zamanlama yetenekleri olan bir linux aracıdır
         /// ITask arayüzünden implemente edilen Task sınıfları cron'un bu yeteneklerini kullanırlar
         /// 
         /// Task sınıfları zaman tetikleyicisi tanımlamak için cron ifadelerini kullanırlar. bu ifadeler ile
