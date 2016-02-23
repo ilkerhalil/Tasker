@@ -1,4 +1,6 @@
-﻿using Tasker.Common.Abstraction;
+﻿using System.Collections.Generic;
+using Quartz;
+using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
 {
@@ -8,9 +10,10 @@ namespace Tasker.QuartzAdapter
 
         void StartTasks();
 
-        void StopTask(string taskName);
+        IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails { get; }
 
         void PauseTask(string taskName);
 
+        void StopTasks();
     }
 }

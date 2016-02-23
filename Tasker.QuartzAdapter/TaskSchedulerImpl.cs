@@ -18,30 +18,35 @@ namespace Tasker.QuartzAdapter
             Tasks = tasks;
         }
 
-        private IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> CreateIJobDetail()
+        public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
         {
-            return Tasks.ToDictionary(di =>
+            get
+            {
+                return Tasks.ToDictionary(di =>
             new JobDetailImpl(di.JobName, di.ImplementIJob().GetType()) as IJobDetail, task => task.CronPrefix.Select(sr => new CronTriggerImpl
             {
                 CronExpressionString = sr
             }) as Quartz.Collection.ISet<ITrigger>);
+            }
+
         }
 
         public void StartTasks()
         {
-            var jobDetails = CreateIJobDetail();
-            _scheduler.ScheduleJobs(jobDetails, true);
+            _scheduler.ScheduleJobs(JobDetails, true);
             _scheduler.Start();
         }
 
-        public void StopTask(string taskName)
-        {
-
-        }
 
         public void PauseTask(string taskName)
         {
-            throw new System.NotImplementedException();
+            var jobkey = this.JobDetails.Keys.Single(w => w.Key.Name == taskName).Key;
+            _scheduler.PauseJob(jobkey);
+        }
+
+        public void StopTasks()
+        {
+            _scheduler.Standby();
         }
     }
 }
