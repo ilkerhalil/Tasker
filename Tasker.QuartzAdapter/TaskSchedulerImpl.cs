@@ -1,29 +1,58 @@
-﻿using Tasker.Common.Abstraction;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Impl.Triggers;
+using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
 {
-    public class TaskSchedulerImpl : ITaskScheduler
+    public class TaskSchedulerImpl : IQuartzTaskScheduler
     {
+        private readonly IScheduler _scheduler;
+
         public ITask[] Tasks { get; }
 
-        public TaskSchedulerImpl(ITask[] tasks)
+        public TaskSchedulerImpl(IScheduler scheduler, ITask[] tasks)
         {
+            _scheduler = scheduler;
             Tasks = tasks;
         }
 
-        public void StarTasks()
+        public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, task.ImplementIJob().GetType()) as IJobDetail,
+                    task => (Quartz.Collection.ISet<ITrigger>)task.CronPrefix.Select(sr => new CronTriggerImpl
+                    {
+                        CronExpressionString = sr
+                    }));
+            }
         }
 
-        public void StopTask(ITask task)
+        public void StartTasks()
         {
-            throw new System.NotImplementedException();
+            _scheduler.ScheduleJobs(JobDetails, true);
+            _scheduler.Start();
         }
 
-        public void PauseTask(ITask task)
+
+        public void PauseTask(string taskName)
         {
-            throw new System.NotImplementedException();
+            var jobkey = this.JobDetails.Keys.Single(w => w.Key.Name == taskName).Key;
+            _scheduler.PauseJob(jobkey);
+        }
+
+        public void StopTasks()
+        {
+            _scheduler.Standby();
+        }
+
+        public void ShutDown()
+        {
+            _scheduler.Shutdown(false);
+
         }
     }
 }
