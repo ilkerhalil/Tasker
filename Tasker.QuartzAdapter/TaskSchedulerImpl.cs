@@ -10,6 +10,7 @@ namespace Tasker.QuartzAdapter
     public class TaskSchedulerImpl : IQuartzTaskScheduler
     {
         private readonly IScheduler _scheduler;
+
         public ITask[] Tasks { get; }
 
         public TaskSchedulerImpl(IScheduler scheduler, ITask[] tasks)
@@ -22,13 +23,12 @@ namespace Tasker.QuartzAdapter
         {
             get
             {
-                return Tasks.ToDictionary(di =>
-            new JobDetailImpl(di.JobName, di.ImplementIJob().GetType()) as IJobDetail, task => task.CronPrefix.Select(sr => new CronTriggerImpl
-            {
-                CronExpressionString = sr
-            }) as Quartz.Collection.ISet<ITrigger>);
+                return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, task.ImplementIJob().GetType()) as IJobDetail,
+                    task => (Quartz.Collection.ISet<ITrigger>)task.CronPrefix.Select(sr => new CronTriggerImpl
+                    {
+                        CronExpressionString = sr
+                    }));
             }
-
         }
 
         public void StartTasks()
