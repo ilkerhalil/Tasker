@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using Quartz;
 using Quartz.Impl;
@@ -24,10 +25,12 @@ namespace Tasker.QuartzAdapter
             get
             {
                 return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, task.ImplementIJob().GetType()) as IJobDetail,
-                    task => (Quartz.Collection.ISet<ITrigger>)task.CronPrefix.Select(sr => new CronTriggerImpl
+                    task => new Quartz.Collection.HashSet<ITrigger>(task.CronPrefix.Select(sr => new CronTriggerImpl
                     {
+                        Name = task.JobName,
                         CronExpressionString = sr
-                    }));
+                    })) as Quartz.Collection.ISet<ITrigger>);
+
             }
         }
 

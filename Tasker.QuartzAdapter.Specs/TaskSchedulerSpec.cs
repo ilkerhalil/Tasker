@@ -37,7 +37,6 @@ namespace Tasker.QuartzAdapter.Specs
             _taskScheduler.StartTasks();
             foreach (var jobDetail in ((TaskSchedulerImpl)_taskScheduler).JobDetails)
             {
-
                 foreach (var trigger in jobDetail.Value)
                 {
                     Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Normal);
