@@ -3,10 +3,16 @@ using Tasker.Common.Abstraction;
 
 namespace Tasker.Common
 {
-    
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class NullTask : TaskBase
     {
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
         public NullTask()
         {
             Init();

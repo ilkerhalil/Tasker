@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TaskSchedulerSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JobSpec.cs" />
   </ItemGroup>
