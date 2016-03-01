@@ -14,13 +14,13 @@ namespace Tasker.QuartzAdapter.Specs
 
         public TaskSchedulerSpec()
         {
+
             var task = new NullTask();
             task.CronPrefix.Add("0 0 12 1/1 * ? *");
+            var job = task.ImplementIJob();
             _scheduler = StdSchedulerFactory.GetDefaultScheduler();
-            _taskScheduler = new TaskSchedulerImpl(_scheduler, new ITask[]
-            {
-                task
-            });
+            var jobs = new IJob[] { job };
+            _taskScheduler = new QuartzTaskSchedulerImpl(_scheduler, jobs);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Tasker.QuartzAdapter.Specs
         public void StartTask()
         {
             _taskScheduler.StartTasks();
-            foreach (var trigger in ((TaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
+            foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Normal);
             }
@@ -51,7 +51,7 @@ namespace Tasker.QuartzAdapter.Specs
         public void StopTask()
         {
             _taskScheduler.StopTasks();
-            foreach (var trigger in ((TaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
+            foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.None);
             }
@@ -60,7 +60,7 @@ namespace Tasker.QuartzAdapter.Specs
         public void PauseTask()
         {
             _taskScheduler.PauseTask("TestJob");
-            foreach (var trigger in ((TaskSchedulerImpl)_taskScheduler).JobDetails.Where(jobDetail => jobDetail.Key.Key.Name == "TestJob").SelectMany(jobDetail => jobDetail.Value))
+            foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.Where(jobDetail => jobDetail.Key.Key.Name == "TestJob").SelectMany(jobDetail => jobDetail.Value))
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Paused);
             }

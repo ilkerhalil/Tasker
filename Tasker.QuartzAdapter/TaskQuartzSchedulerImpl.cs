@@ -8,23 +8,24 @@ using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
 {
-    public class TaskSchedulerImpl : IQuartzTaskScheduler
+    public class QuartzTaskSchedulerImpl : IQuartzTaskScheduler
     {
         private readonly IScheduler _scheduler;
 
         public ITask[] Tasks { get; }
 
-        public TaskSchedulerImpl(IScheduler scheduler, ITask[] tasks)
+        public QuartzTaskSchedulerImpl(IScheduler scheduler, IJob[] tasks)
         {
+
             _scheduler = scheduler;
-            Tasks = tasks;
+            Tasks = tasks.Select(s => (ITask)s).ToArray();
         }
 
         public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
         {
             get
             {
-                return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, task.ImplementIJob().GetType()) as IJobDetail,
+                return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, (task as IJob).GetType()) as IJobDetail,
                     task => new Quartz.Collection.HashSet<ITrigger>(task.CronPrefix.Select(sr => new CronTriggerImpl
                     {
                         Name = task.JobName,
