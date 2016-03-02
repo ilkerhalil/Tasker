@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Quartz;
 using Quartz.Impl;
 using Tasker.Common;
 using Tasker.Common.Abstraction;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Tasker.QuartzAdapter.Specs
 {
@@ -14,7 +16,6 @@ namespace Tasker.QuartzAdapter.Specs
 
         public TaskSchedulerSpec()
         {
-
             var task = new NullTask();
             task.CronPrefix.Add("0 0 12 1/1 * ? *");
             var job = task.ImplementIJob();

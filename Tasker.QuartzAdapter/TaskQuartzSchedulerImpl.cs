@@ -16,7 +16,6 @@ namespace Tasker.QuartzAdapter
 
         public QuartzTaskSchedulerImpl(IScheduler scheduler, IJob[] tasks)
         {
-
             _scheduler = scheduler;
             Tasks = tasks.Select(s => (ITask)s).ToArray();
         }

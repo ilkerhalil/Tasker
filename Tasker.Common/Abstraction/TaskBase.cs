@@ -141,6 +141,7 @@ namespace Tasker.Common.Abstraction
         ///         NOT : HAFTANIN GÜNÜ VE AYIN GÜNÜ ALANLARINDA "?" VE "*" KAREKTERLERİNİN KULLANIRKEN DİKKATLİ OLUNUZ
         /// 
         /// </remarks>
+        
         public virtual IList<string> CronPrefix { get; }
 
         /// <summary>
