@@ -1,7 +1,7 @@
 ﻿using System;
 using Tasker.Common.Abstraction;
 
-namespace Tasker.Common
+namespace Tasker.QuartzAdapter.Specs
 {
 
     /// <summary>
@@ -20,7 +20,8 @@ namespace Tasker.Common
 
         private void Init()
         {
-            CronPrefix.Add("0 0 12 1/1 * ? *");
+            CronPrefix.Add("0 0/1 * 1/1 * ? *");
+            ModuleParameters.Add("test", this);
         }
 
         /// <summary>Modül adı. Modülü tanımlamak için ve diğer modüllerden ayırabilmek için kullanılır</summary>
@@ -31,7 +32,7 @@ namespace Tasker.Common
         /// Çalıştırılacak olan görevin adı
         /// </summary>
         /// <value><see cref="System.String"/> sınıfından bir değer döndürür</value>
-        public override string JobName { get; } = "TestJob"; 
+        public override string JobName { get; } = "TestJob";
 
         /// <summary>
         /// Görevi başlatan metod. Bir görev için tanımlanmış olan zamanlayıcı tetiklendiği zaman bu metodu
@@ -39,7 +40,8 @@ namespace Tasker.Common
         /// </summary>
         public override void Run()
         {
-            throw new NotImplementedException();
+            //ModuleParameters.Add("Exception", new NotImplementedException());
+            TaskSchedulerUnitySpec.Values.Add("Running");
         }
     }
 }

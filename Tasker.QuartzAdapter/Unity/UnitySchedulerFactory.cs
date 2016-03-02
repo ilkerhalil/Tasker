@@ -6,16 +6,16 @@ namespace Tasker.QuartzAdapter.Unity
 {
     public class UnitySchedulerFactory : StdSchedulerFactory
     {
-        private readonly UnityJobFactory unityJobFactory;
+        private readonly UnityJobFactory _unityJobFactory;
 
         public UnitySchedulerFactory(UnityJobFactory unityJobFactory)
         {
-            this.unityJobFactory = unityJobFactory;
+            _unityJobFactory = unityJobFactory;
         }
 
         protected override IScheduler Instantiate(QuartzSchedulerResources rsrcs, QuartzScheduler qs)
         {
-            qs.JobFactory = this.unityJobFactory;
+            qs.JobFactory = _unityJobFactory;
             return base.Instantiate(rsrcs, qs);
         }
     }

@@ -1,16 +1,14 @@
 ﻿using System.Linq;
-using System.Reflection;
 using Quartz;
 using Quartz.Impl;
 using Tasker.Common;
 using Tasker.Common.Abstraction;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Tasker.QuartzAdapter.Specs
 {
     public class TaskSchedulerSpec
-    {  
+    {
         private readonly ITaskScheduler _taskScheduler;
         private readonly IScheduler _scheduler;
 
@@ -35,6 +33,12 @@ namespace Tasker.QuartzAdapter.Specs
         {
             Assert.NotNull(_taskScheduler.Tasks[0].CronPrefix);
             Assert.True(_taskScheduler.Tasks[0].CronPrefix.Count > 1);
+        }
+        [Fact]
+        public void ModuleParameters()
+        {
+            Assert.NotNull(_taskScheduler.Tasks[0].ModuleParameters);
+            Assert.True(_taskScheduler.Tasks[0].ModuleParameters.Count > 0);
         }
 
 

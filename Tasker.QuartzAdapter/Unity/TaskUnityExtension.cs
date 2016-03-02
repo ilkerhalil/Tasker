@@ -13,7 +13,7 @@ namespace Tasker.QuartzAdapter.Unity
             if (!tasks.Any()) return;
             foreach (var task in tasks)
             {
-                Container.RegisterType<IJob>(new InjectionFactory(c => task.ImplementIJob()));
+                Container.RegisterType<IJob>(task.JobName, new InjectionFactory(c => task.ImplementIJob()));
             }
         }
     }

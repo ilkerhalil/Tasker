@@ -30,7 +30,6 @@ namespace Tasker.QuartzAdapter
                         Name = task.JobName,
                         CronExpressionString = sr
                     })) as Quartz.Collection.ISet<ITrigger>);
-
             }
         }
 
@@ -43,7 +42,7 @@ namespace Tasker.QuartzAdapter
 
         public void PauseTask(string taskName)
         {
-            var jobkey = this.JobDetails.Keys.Single(w => w.Key.Name == taskName).Key;
+            var jobkey = JobDetails.Keys.Single(w => w.Key.Name == taskName).Key;
             _scheduler.PauseJob(jobkey);
         }
 
