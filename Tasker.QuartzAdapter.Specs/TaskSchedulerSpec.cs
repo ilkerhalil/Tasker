@@ -1,22 +1,23 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Quartz;
 using Quartz.Impl;
 using Tasker.Common;
 using Tasker.Common.Abstraction;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Tasker.QuartzAdapter.Specs
 {
     public class TaskSchedulerSpec
-    {
+    {  
         private readonly ITaskScheduler _taskScheduler;
         private readonly IScheduler _scheduler;
 
         public TaskSchedulerSpec()
         {
-
             var task = new NullTask();
-            task.CronPrefix.Add("0 0 12 1/1 * ? *");
+            task.CronPrefix.Add("0 0 12 1/1 * ? *3");
             var job = task.ImplementIJob();
             _scheduler = StdSchedulerFactory.GetDefaultScheduler();
             var jobs = new IJob[] { job };

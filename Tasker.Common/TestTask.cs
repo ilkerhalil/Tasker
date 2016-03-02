@@ -31,7 +31,7 @@ namespace Tasker.Common
         /// Çalıştırılacak olan görevin adı
         /// </summary>
         /// <value><see cref="System.String"/> sınıfından bir değer döndürür</value>
-        public override string JobName { get { return "TestJob"; } }
+        public override string JobName { get; } = "TestJob"; 
 
         /// <summary>
         /// Görevi başlatan metod. Bir görev için tanımlanmış olan zamanlayıcı tetiklendiği zaman bu metodu
