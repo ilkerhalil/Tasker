@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using FluentAssertions;
 using Microsoft.Practices.Unity;
+using NullTask;
 using Tasker.Common.Abstraction;
 using Tasker.QuartzAdapter.Unity;
 using Xunit;
@@ -32,8 +33,8 @@ namespace Tasker.QuartzAdapter.Specs
         [Fact]
         public void CronPrefix()
         {
-            Assert.NotNull(_taskScheduler.Tasks[0].CronPrefix);
-            Assert.True(_taskScheduler.Tasks[0].CronPrefix.Count == 1);
+            Assert.NotNull(_taskScheduler.Tasks[0].TaskTriggerCollection);
+            Assert.True(_taskScheduler.Tasks[0].TaskTriggerCollection.Count == 1);
         }
         [Fact]
         public void ModuleParameters()
@@ -49,14 +50,14 @@ namespace Tasker.QuartzAdapter.Specs
             _taskScheduler.StartTasks();
             var reset = new ManualResetEvent(false);
             reset.WaitOne(60.Seconds());
-            Assert.True(Values.Count == 1);
+            Assert.True(TestCollection.CreateTestCollection().ConcurrentBag.Count == 1);
         }
 
 
         private static Lazy<IUnityContainer> InitContainer()
         {
             var unityContainer = UnityBootstrap.BuildUnityContainer();
-            unityContainer.RegisterType<ITask, NullTask.NullTask>("NullTask");
+            unityContainer.RegisterType<ITask, NullTask.DumbTask>("NullTask");
             unityContainer.AddNewExtension<TaskUnityExtension>();
             unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
             unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();

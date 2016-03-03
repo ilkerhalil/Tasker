@@ -1,4 +1,5 @@
-﻿using Tasker.Common.Abstraction;
+﻿using System;
+using Tasker.Common.Abstraction;
 
 namespace NullTask
 {
@@ -6,20 +7,21 @@ namespace NullTask
     /// <summary>
     /// 
     /// </summary>
-    public class NullTask : TaskBase
+    public class DumbTask : TaskBase
     {
 
         /// <summary>
         /// 
         /// </summary>
-        public NullTask()
+        public DumbTask()
         {
             Init();
         }
 
         private void Init()
         {
-            CronPrefix.Add("0 0/1 * 1/1 * ? *");
+
+            this.TaskTriggerCollection.Add(new TaskTrigger("0 0/1 * 1/1 * ? *"));
             ModuleParameters.Add("test", this);
         }
 
@@ -41,6 +43,10 @@ namespace NullTask
         {
             //ModuleParameters.Add("Exception", new NotImplementedException());
             //TaskSchedulerUnitySpec.Values.Add("Running");
+            TestCollection.CreateTestCollection().ConcurrentBag.Add("Running");
+            //throw new NotImplementedException();
         }
+
+        public override string Description => "Testler için oluşturulmuş bir tasktır. Her dakida bir tetiklenecek şekilde ayarlanmıştır.";
     }
 }

@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestTask.cs" />
+    <Compile Include="DumbTask.cs" />
+    <Compile Include="TestCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tasker.Common\Tasker.Common.csproj">

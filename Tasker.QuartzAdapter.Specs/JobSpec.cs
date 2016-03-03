@@ -13,7 +13,7 @@ namespace Tasker.QuartzAdapter.Specs
 
         public JobSpec()
         {
-            _task = new NullTask.NullTask();
+            _task = new NullTask.DumbTask();
             _job = _task.ImplementIJob();
         }
 

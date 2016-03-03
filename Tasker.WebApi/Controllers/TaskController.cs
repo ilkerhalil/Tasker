@@ -23,7 +23,7 @@ namespace Tasker.WebApi.Controllers
             return _taskScheduler.Tasks.Select(s => new TaskViewModel
             {
                 TaskName = s.JobName,
-                CronPrefixs = s.CronPrefix,
+               // CronPrefixs = s.CronPrefixs,
                 TaskStatus = TaskStatus.Started
             }).ToList();
         }

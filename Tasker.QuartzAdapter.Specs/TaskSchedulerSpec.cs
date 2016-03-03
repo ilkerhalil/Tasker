@@ -14,8 +14,9 @@ namespace Tasker.QuartzAdapter.Specs
 
         public TaskSchedulerSpec()
         {
-            var task = new NullTask.NullTask();
-            task.CronPrefix.Add("0 0 12 1/1 * ? *3");
+            var task = new NullTask.DumbTask();
+            var taskTrigger = new TaskTrigger("0 0/1 * 1/1 * ? *");
+            task.TaskTriggerCollection.Add(taskTrigger);
             var job = task.ImplementIJob();
             _scheduler = StdSchedulerFactory.GetDefaultScheduler();
             var jobs = new IJob[] { job };
@@ -31,8 +32,8 @@ namespace Tasker.QuartzAdapter.Specs
         [Fact]
         public void CronPrefix()
         {
-            Assert.NotNull(_taskScheduler.Tasks[0].CronPrefix);
-            Assert.True(_taskScheduler.Tasks[0].CronPrefix.Count > 1);
+            Assert.NotNull(_taskScheduler.Tasks[0].TaskTriggerCollection);
+            Assert.True(_taskScheduler.Tasks[0].TaskTriggerCollection.Count > 1);
         }
         [Fact]
         public void ModuleParameters()

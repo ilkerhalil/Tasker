@@ -17,18 +17,22 @@ namespace Tasker.QuartzAdapter
         public QuartzTaskSchedulerImpl(IScheduler scheduler, IJob[] tasks)
         {
             _scheduler = scheduler;
-            Tasks = tasks.Select(s => (ITask) s).ToArray();
+            Tasks = tasks.Select(s => (ITask)s).ToArray();
         }
 
         public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
         {
             get
             {
-                return Tasks.ToDictionary(task => new JobDetailImpl(task.JobName, (task as IJob).GetType()) as IJobDetail,
-                    task => new Quartz.Collection.HashSet<ITrigger>(task.CronPrefix.Select(sr => new CronTriggerImpl
+                return Tasks.ToDictionary(task =>
+                new JobDetailImpl(task.JobName, (task as IJob).GetType())
+                {
+                    Description = task.Description
+                } as IJobDetail,
+                    task => new Quartz.Collection.HashSet<ITrigger>(task.TaskTriggerCollection.Select(sr => new CronTriggerImpl
                     {
                         Name = task.JobName,
-                        CronExpressionString = sr
+                        CronExpressionString = sr.CronPrefix
                     })) as Quartz.Collection.ISet<ITrigger>);
             }
         }

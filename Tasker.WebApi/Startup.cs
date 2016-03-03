@@ -48,7 +48,7 @@ namespace Tasker.WebApi
         {
             var unityContainer = new UnityContainer();
             //taskları burada register etmeliyiz..!
-            unityContainer.RegisterType<ITask, NullTask.NullTask>("NullTask");
+            unityContainer.RegisterType<ITask, NullTask.DumbTask>("NullTask");
             unityContainer.AddNewExtension<TaskUnityExtension>();
             unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
             unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();

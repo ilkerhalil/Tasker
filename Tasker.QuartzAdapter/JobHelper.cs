@@ -39,7 +39,7 @@ namespace Tasker.QuartzAdapter
             InjectRunMethod(task, methodBuilder);
             typeBuilder.DefineMethodOverride(methodBuilder, typeof(IJob).GetMethod("Execute"));
             var targetType = typeBuilder.CreateType();
-            return MapProperties(task,(IJob) Activator.CreateInstance(targetType));
+            return MapProperties(task, (IJob)Activator.CreateInstance(targetType));
         }
 
         /// <summary>
@@ -51,16 +51,15 @@ namespace Tasker.QuartzAdapter
         /// <returns>Girişte verilen IJob türündeki instance geriye döner</returns>
         private static IJob MapProperties(ITask sourceInstance, IJob targetInstance)
         {
-            PropertyInfo[] sourceInstanceProperties = sourceInstance.GetType().GetProperties();
+            var sourceInstanceProperties = sourceInstance.GetType().GetProperties();
             sourceInstanceProperties.ForEach(propertyInfo =>
             {
                 var sourceInstancePropertyValue = propertyInfo.GetValue(sourceInstance);
-                if (sourceInstancePropertyValue != null)
-                {
-                    var backingFieldName = string.Format("<{0}>k__BackingField", propertyInfo.Name);
-                    var backingField = propertyInfo.DeclaringType.GetField(backingFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-                    backingField.SetValue(targetInstance, sourceInstancePropertyValue);
-                }
+                if (sourceInstancePropertyValue == null) return;
+                var backingFieldName = $"<{propertyInfo.Name}>k__BackingField";
+                if (propertyInfo.DeclaringType == null) return;
+                var backingField = propertyInfo.DeclaringType.GetField(backingFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+                backingField?.SetValue(targetInstance, sourceInstancePropertyValue);
             });
             return targetInstance;
         }
