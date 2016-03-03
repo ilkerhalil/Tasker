@@ -14,5 +14,10 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NullTask\NullTask.csproj" />
+    <ProjectReference Include="..\Tasker.Common\Tasker.Common.csproj" />
+    <ProjectReference Include="..\Tasker.QuartzAdapter\Tasker.QuartzAdapter.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

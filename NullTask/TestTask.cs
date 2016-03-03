@@ -1,7 +1,6 @@
-﻿using System;
-using Tasker.Common.Abstraction;
+﻿using Tasker.Common.Abstraction;
 
-namespace Tasker.QuartzAdapter.Specs
+namespace NullTask
 {
 
     /// <summary>
@@ -41,7 +40,7 @@ namespace Tasker.QuartzAdapter.Specs
         public override void Run()
         {
             //ModuleParameters.Add("Exception", new NotImplementedException());
-            TaskSchedulerUnitySpec.Values.Add("Running");
+            //TaskSchedulerUnitySpec.Values.Add("Running");
         }
     }
 }

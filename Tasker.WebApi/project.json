@@ -10,7 +10,7 @@
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.FileProviderExtensions" : "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.FileProviderExtensions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
@@ -22,8 +22,11 @@
   },
 
   "frameworks": {
-    "dnx451": {
+    "dnx46": {
       "dependencies": {
+        "NullTask": "1.0.0-*",
+        "Tasker.Common": "1.0.0-*",
+        "Tasker.QuartzAdapter": "1.0.0-*",
         "Unity": "3.5.1404"
       }
     },

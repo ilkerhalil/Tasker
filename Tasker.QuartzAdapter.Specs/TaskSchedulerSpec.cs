@@ -14,7 +14,7 @@ namespace Tasker.QuartzAdapter.Specs
 
         public TaskSchedulerSpec()
         {
-            var task = new NullTask();
+            var task = new NullTask.NullTask();
             task.CronPrefix.Add("0 0 12 1/1 * ? *3");
             var job = task.ImplementIJob();
             _scheduler = StdSchedulerFactory.GetDefaultScheduler();

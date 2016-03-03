@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Practices.Unity;
+using Tasker.Common.Abstraction;
+using Tasker.QuartzAdapter;
+using Tasker.QuartzAdapter.Unity;
 using Tasker.WebApi.UnityImpl;
 
 namespace Tasker.WebApi
@@ -35,12 +37,22 @@ namespace Tasker.WebApi
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMvc();
-            var container = new UnityContainer();
+            var container = InitContainer().Value;
             container.Populate(services);
             //container.Resolve<IScopedInstance<ActionContext>>();
             return container.Resolve<IServiceProvider>();
 
 
+        }
+        private static Lazy<IUnityContainer> InitContainer()
+        {
+            var unityContainer = new UnityContainer();
+            //taskları burada register etmeliyiz..!
+            unityContainer.RegisterType<ITask, NullTask.NullTask>("NullTask");
+            unityContainer.AddNewExtension<TaskUnityExtension>();
+            unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
+            unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();
+            return new Lazy<IUnityContainer>(() => unityContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

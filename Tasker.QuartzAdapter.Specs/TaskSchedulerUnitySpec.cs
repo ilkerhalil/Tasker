@@ -56,7 +56,7 @@ namespace Tasker.QuartzAdapter.Specs
         private static Lazy<IUnityContainer> InitContainer()
         {
             var unityContainer = UnityBootstrap.BuildUnityContainer();
-            unityContainer.RegisterType<ITask, NullTask>("NullTask");
+            unityContainer.RegisterType<ITask, NullTask.NullTask>("NullTask");
             unityContainer.AddNewExtension<TaskUnityExtension>();
             unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
             unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();
