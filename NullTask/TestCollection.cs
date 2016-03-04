@@ -6,12 +6,17 @@ namespace NullTask
     public class TestCollection
     {
         private static TestCollection _testCollection;
-        public static TestCollection CreateTestCollection()
+        static readonly object dummy = new object();
+        public static TestCollection CreateTestCollection
         {
-            lock (_testCollection)
+            get
             {
-                return _testCollection ?? new TestCollection();
+                lock (dummy)
+                {
+                    return _testCollection ?? new TestCollection();
+                }
             }
+
 
         }
 

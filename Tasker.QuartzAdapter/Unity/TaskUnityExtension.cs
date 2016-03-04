@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Quartz;
 using Tasker.Common.Abstraction;
+using Tasker.QuartzAdapter.Extensions;
 
 namespace Tasker.QuartzAdapter.Unity
 {
