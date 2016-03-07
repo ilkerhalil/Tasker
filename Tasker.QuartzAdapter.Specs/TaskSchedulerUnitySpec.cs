@@ -15,6 +15,7 @@ namespace Tasker.QuartzAdapter.Specs
     {
 
         public static ConcurrentBag<string> Values = new ConcurrentBag<string>();
+
         private readonly ITaskScheduler _taskScheduler;
 
         public TaskSchedulerUnitySpec()
@@ -50,7 +51,7 @@ namespace Tasker.QuartzAdapter.Specs
             _taskScheduler.StartTasks();
             var reset = new ManualResetEvent(false);
             reset.WaitOne(60.Seconds());
-            Assert.True(TestCollection.CreateTestCollection().ConcurrentBag.Count == 1);
+            Assert.True(TestCollection.CreateTestCollection.ConcurrentBag.Count == 1);
         }
 
 
