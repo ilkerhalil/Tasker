@@ -15,7 +15,11 @@ namespace Tasker.QuartzAdapter
 
         public void Execute(IJobExecutionContext context)
         {
-            if (context == null) return;
+            if (context == null)
+            {
+                TaskIntance.Run();
+                return;
+            }
             if (context.NextFireTimeUtc.HasValue) TaskIntance.NextFireTime = context.NextFireTimeUtc.Value.LocalDateTime;
             if (context.PreviousFireTimeUtc.HasValue) TaskIntance.PreviousFireTime = context.PreviousFireTimeUtc.Value.LocalDateTime;
             TaskIntance.TaskRunTime = context.JobRunTime;
