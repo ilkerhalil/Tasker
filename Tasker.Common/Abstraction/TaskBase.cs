@@ -47,9 +47,23 @@ namespace Tasker.Common.Abstraction
         public abstract string Description { get; }
 
         /// <summary>
-        /// 
+        ///Todo : Dökümantasyon gerekiyor.  
         /// </summary>
         public IList<TaskTrigger> TaskTriggerCollection { get; }
 
+        /// <summary>
+        ///Todo : Dökümantasyon gerekiyor. 
+        /// </summary>
+        public virtual DateTime NextFireTime { get; set; }
+
+        /// <summary>
+        /// Todo : Dökümantasyon gerekiyor.
+        /// </summary>
+        public virtual DateTime PreviousFireTime { get; set; }
+
+        /// <summary>
+        /// Todo : Dökümantasyon gerekiyor.
+        /// </summary>
+        public TimeSpan TaskRunTime { get; set; }
     }
 }

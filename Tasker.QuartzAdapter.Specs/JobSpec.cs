@@ -1,7 +1,9 @@
 ﻿using System;
 using Quartz;
+using Quartz.Impl;
 using Tasker.Common;
 using Tasker.Common.Abstraction;
+using Tasker.QuartzAdapter.Extensions;
 using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs

@@ -43,8 +43,8 @@ namespace NullTask
         {
             //ModuleParameters.Add("Exception", new NotImplementedException());
             //TaskSchedulerUnitySpec.Values.Add("Running");
-            TestCollection.CreateTestCollection().ConcurrentBag.Add("Running");
-            //throw new NotImplementedException();
+            //TestCollection.CreateTestCollection.ConcurrentBag.Add("Running");
+            throw new NotImplementedException();
         }
 
         public override string Description => "Testler için oluşturulmuş bir tasktır. Her dakida bir tetiklenecek şekilde ayarlanmıştır.";

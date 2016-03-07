@@ -136,14 +136,6 @@ namespace Tasker.Common.Abstraction
         public string CronPrefix { get; }
 
 
-        /// <summary>
-        ///Todo : Dökümantasyon gerekiyor. 
-        /// </summary>
-        public DateTime NextFireTime { get; set; }
-
-        /// <summary>
-        /// Todo : Dökümantasyon gerekiyor.
-        /// </summary>
-        public DateTime PreviousFireTime { get; set; }
+     
     }
 }

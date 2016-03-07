@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Tasker.Common.Abstraction
 {
@@ -8,7 +9,7 @@ namespace Tasker.Common.Abstraction
     /// </summary>
     public interface ITask : IModule
     {
-      
+
         /// <summary>
         /// Çalıştırılacak olan görevin adı
         /// </summary>
@@ -30,6 +31,19 @@ namespace Tasker.Common.Abstraction
         /// </summary>
         IList<TaskTrigger> TaskTriggerCollection { get; }
 
+        /// <summary>
+        ///Todo : Dökümantasyon gerekiyor. 
+        /// </summary>
+        DateTime NextFireTime { get; set; }
 
+        /// <summary>
+        /// Todo : Dökümantasyon gerekiyor.
+        /// </summary>
+        DateTime PreviousFireTime { get; set; }
+
+        /// <summary>
+        /// Todo : Dökümantasyon gerekiyor.
+        /// </summary>
+        TimeSpan TaskRunTime { get; set; }
     }
 }
