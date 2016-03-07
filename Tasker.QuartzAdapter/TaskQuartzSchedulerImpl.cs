@@ -17,7 +17,7 @@ namespace Tasker.QuartzAdapter
         public QuartzTaskSchedulerImpl(IScheduler scheduler, IJob[] tasks)
         {
             _scheduler = scheduler;
-            Tasks = tasks.Select(s => (ITask)s).ToArray();
+            Tasks = tasks.Select(s => ((TaskDecorator<ITask>)s).TaskIntance).ToArray();
         }
 
         public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
@@ -25,7 +25,7 @@ namespace Tasker.QuartzAdapter
             get
             {
                 return Tasks.ToDictionary(task =>
-                new JobDetailImpl(task.JobName, (task as IJob).GetType())
+                new JobDetailImpl(task.JobName, new TaskDecorator<ITask>(task).GetType())
                 {
                     Description = task.Description
                 } as IJobDetail,

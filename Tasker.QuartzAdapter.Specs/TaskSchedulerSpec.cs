@@ -18,7 +18,7 @@ namespace Tasker.QuartzAdapter.Specs
             var task = new NullTask.DumbTask();
             var taskTrigger = new TaskTrigger("0 0/1 * 1/1 * ? *");
             task.TaskTriggerCollection.Add(taskTrigger);
-            var job = task.ImplementIJob();
+            var job = new TaskDecorator<ITask>(task);
             _scheduler = StdSchedulerFactory.GetDefaultScheduler();
             var jobs = new IJob[] { job };
             _taskScheduler = new QuartzTaskSchedulerImpl(_scheduler, jobs);

@@ -18,6 +18,12 @@ namespace NullTask
             Init();
         }
 
+        public DumbTask(string test)
+            : this()
+        {
+
+        }
+
         private void Init()
         {
 

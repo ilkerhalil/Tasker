@@ -1,9 +1,6 @@
 ﻿using System;
 using Quartz;
-using Quartz.Impl;
-using Tasker.Common;
 using Tasker.Common.Abstraction;
-using Tasker.QuartzAdapter.Extensions;
 using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs
@@ -16,7 +13,7 @@ namespace Tasker.QuartzAdapter.Specs
         public JobSpec()
         {
             _task = new NullTask.DumbTask();
-            _job = _task.ImplementIJob();
+            _job = new TaskDecorator<ITask>(_task);
         }
 
         [Fact]
