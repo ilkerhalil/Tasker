@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Quartz;
 using Quartz.Impl;
-using Tasker.Common;
 using Tasker.Common.Abstraction;
-using Tasker.QuartzAdapter.Extensions;
 using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs
 {
+    
     public class TaskSchedulerSpec
     {
         private readonly ITaskScheduler _taskScheduler;
@@ -25,6 +24,7 @@ namespace Tasker.QuartzAdapter.Specs
         }
 
         [Fact]
+        
         public void TaskArray()
         {
             Assert.True(_taskScheduler.Tasks.Any());
@@ -52,24 +52,25 @@ namespace Tasker.QuartzAdapter.Specs
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Normal);
             }
+           
         }
-
         [Fact]
-        public void StopTask()
-        {
-            _taskScheduler.StopTasks();
-            foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
-            {
-                Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.None);
-            }
-        }
-
         public void PauseTask()
         {
+            _taskScheduler.StartTasks();
             _taskScheduler.PauseTask("TestJob");
             foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.Where(jobDetail => jobDetail.Key.Key.Name == "TestJob").SelectMany(jobDetail => jobDetail.Value))
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Paused);
+            }
+        }
+        [Fact]
+        public void StopTask()
+        {
+            _taskScheduler.ShutDown();
+            foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
+            {
+                Assert.Throws<SchedulerException>(()=> _scheduler.GetTriggerState(trigger.Key) == TriggerState.None);
             }
         }
     }

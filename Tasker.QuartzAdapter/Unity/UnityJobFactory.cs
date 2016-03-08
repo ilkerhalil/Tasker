@@ -107,7 +107,7 @@ namespace Tasker.QuartzAdapter.Unity
                 var childContainer = _unityContainer.CreateChildContainer();
                 try
                 {
-                    RunningJob = (IJob)childContainer.Resolve(_bundle.JobDetail.JobType);
+                    RunningJob = (IJob)childContainer.Resolve(_bundle.JobDetail.JobType, _bundle.JobDetail.Key.Name);
                     RunningJob.Execute(context);
                 }
                 catch (JobExecutionException)

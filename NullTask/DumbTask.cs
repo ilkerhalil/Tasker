@@ -27,7 +27,7 @@ namespace NullTask
         private void Init()
         {
 
-            this.TaskTriggerCollection.Add(new TaskTrigger("0 0/1 * 1/1 * ? *"));
+            TaskTriggerCollection.Add(new TaskTrigger("0 0/1 * 1/1 * ? *"));
             ModuleParameters.Add("test", this);
         }
 
@@ -49,8 +49,8 @@ namespace NullTask
         {
             //ModuleParameters.Add("Exception", new NotImplementedException());
             //TaskSchedulerUnitySpec.Values.Add("Running");
-            //TestCollection.CreateTestCollection.ConcurrentBag.Add("Running");
-            throw new NotImplementedException();
+           
+            //throw new NotImplementedException();
         }
 
         public override string Description => "Testler için oluşturulmuş bir tasktır. Her dakida bir tetiklenecek şekilde ayarlanmıştır.";

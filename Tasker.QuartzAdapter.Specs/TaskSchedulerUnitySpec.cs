@@ -6,7 +6,6 @@ using FluentAssertions;
 using Microsoft.Practices.Unity;
 using NullTask;
 using Tasker.Common.Abstraction;
-using Tasker.QuartzAdapter.Unity;
 using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs
@@ -14,15 +13,14 @@ namespace Tasker.QuartzAdapter.Specs
     public class TaskSchedulerUnitySpec
     {
 
-        public static ConcurrentBag<string> Values = new ConcurrentBag<string>();
 
         private readonly ITaskScheduler _taskScheduler;
 
         public TaskSchedulerUnitySpec()
         {
-            var container = InitContainer().Value;
+            var container = UnityBootstrap.BuildUnityContainer().Value;
             _taskScheduler = container.Resolve<ITaskScheduler>();
-
+            
         }
 
         [Fact]
@@ -51,18 +49,12 @@ namespace Tasker.QuartzAdapter.Specs
             _taskScheduler.StartTasks();
             var reset = new ManualResetEvent(false);
             reset.WaitOne(60.Seconds());
-            Assert.True(TestCollection.CreateTestCollection.ConcurrentBag.Count == 1);
+            var nextFireTime = _taskScheduler.Tasks.First().NextFireTime;
+            Assert.NotEqual(nextFireTime,default(DateTime));
+            
         }
 
 
-        private static Lazy<IUnityContainer> InitContainer()
-        {
-            var unityContainer = UnityBootstrap.BuildUnityContainer();
-            unityContainer.RegisterType<ITask, DumbTask>("NullTask",new InjectionConstructor("test"));
-            unityContainer.AddNewExtension<TaskUnityExtension>();
-            unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
-            unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();
-            return new Lazy<IUnityContainer>(() => unityContainer);
-        }
+
     }
 }

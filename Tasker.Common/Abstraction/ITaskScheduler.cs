@@ -22,9 +22,6 @@
         /// 
         /// </summary>
         void StartTasks();
-        /// <summary>
-        /// 
-        /// </summary>
-        void StopTasks();
+        
     }
 }

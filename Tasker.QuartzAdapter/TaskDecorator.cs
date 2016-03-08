@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using System;
+using Quartz;
 using Tasker.Common.Abstraction;
 
 namespace Tasker.QuartzAdapter
@@ -6,24 +7,23 @@ namespace Tasker.QuartzAdapter
     public class TaskDecorator<T> : IJob
         where T : class, ITask
     {
-        public TaskDecorator(T taskIntance)
+        public TaskDecorator(T taskInstance)
         {
-            TaskIntance = taskIntance;
+            TaskInstance = taskInstance;
         }
 
-        public T TaskIntance { get; }
+        public T TaskInstance { get; }
 
         public void Execute(IJobExecutionContext context)
         {
             if (context == null)
             {
-                TaskIntance.Run();
-                return;
+                throw new NotImplementedException();
             }
-            if (context.NextFireTimeUtc.HasValue) TaskIntance.NextFireTime = context.NextFireTimeUtc.Value.LocalDateTime;
-            if (context.PreviousFireTimeUtc.HasValue) TaskIntance.PreviousFireTime = context.PreviousFireTimeUtc.Value.LocalDateTime;
-            TaskIntance.TaskRunTime = context.JobRunTime;
-            TaskIntance.Run();
+            if (context.NextFireTimeUtc.HasValue) TaskInstance.NextFireTime = context.NextFireTimeUtc.Value.LocalDateTime;
+            if (context.PreviousFireTimeUtc.HasValue) TaskInstance.PreviousFireTime = context.PreviousFireTimeUtc.Value.LocalDateTime;
+            TaskInstance.TaskRunTime = context.JobRunTime;
+            TaskInstance.Run();
         }
     }
 }

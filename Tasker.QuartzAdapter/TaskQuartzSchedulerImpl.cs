@@ -17,7 +17,7 @@ namespace Tasker.QuartzAdapter
         public QuartzTaskSchedulerImpl(IScheduler scheduler, IJob[] tasks)
         {
             _scheduler = scheduler;
-            Tasks = tasks.Select(s => ((TaskDecorator<ITask>)s).TaskIntance).ToArray();
+            Tasks = tasks.Select(s => ((TaskDecorator<ITask>)s).TaskInstance).ToArray();
         }
 
         public IDictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>> JobDetails
@@ -50,10 +50,7 @@ namespace Tasker.QuartzAdapter
             _scheduler.PauseJob(jobkey);
         }
 
-        public void StopTasks()
-        {
-            _scheduler.Standby();
-        }
+
 
         public void ShutDown()
         {

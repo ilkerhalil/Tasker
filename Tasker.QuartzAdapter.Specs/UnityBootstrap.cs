@@ -1,20 +1,22 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using NullTask;
+using Tasker.Common.Abstraction;
+using Tasker.QuartzAdapter.Unity;
 
 namespace Tasker.QuartzAdapter.Specs
 {
     public static class UnityBootstrap
     {
-        public static IUnityContainer BuildUnityContainer()
+        public static Lazy<IUnityContainer> BuildUnityContainer()
         {
-            var container = new UnityContainer();
-            return container;
-            //Logger.SetLogWriter(new LogWriterFactory().Create());
-            //IConfigurationSource config = ConfigurationSourceFactory.Create();
-            //ExceptionPolicyFactory factory = new ExceptionPolicyFactory(config);
-            //ExceptionManager exceptionManager = factory.CreateManager();
-            //ExceptionPolicy.SetExceptionManager(exceptionManager);
-            //return container;
+            var unityContainer = new UnityContainer();
+            unityContainer.RegisterType<ITask, DumbTask>("NullTask", new InjectionConstructor("test"));
+            unityContainer.AddNewExtension<TaskUnityExtension>();
+            unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
+            unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();
+            return new Lazy<IUnityContainer>(() => unityContainer);
         }
     }
 }
