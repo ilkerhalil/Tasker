@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Practices.Unity;
+using NullTask;
 using Tasker.Common.Abstraction;
 using Tasker.QuartzAdapter;
 using Tasker.QuartzAdapter.Unity;
@@ -39,7 +40,6 @@ namespace Tasker.WebApi
             services.AddMvc();
             var container = InitContainer().Value;
             container.Populate(services);
-            //container.Resolve<IScopedInstance<ActionContext>>();
             return container.Resolve<IServiceProvider>();
 
 
@@ -47,8 +47,7 @@ namespace Tasker.WebApi
         private static Lazy<IUnityContainer> InitContainer()
         {
             var unityContainer = new UnityContainer();
-            //taskları burada register etmeliyiz..!
-            unityContainer.RegisterType<ITask, NullTask.DumbTask>("NullTask");
+            unityContainer.RegisterType<ITask, DumbTask>("NullTask", new InjectionConstructor("test"));
             unityContainer.AddNewExtension<TaskUnityExtension>();
             unityContainer.RegisterType<ITaskScheduler, QuartzTaskSchedulerImpl>();
             unityContainer.AddNewExtension<TaskerQuartzUnityExtension>();

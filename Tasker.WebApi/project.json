@@ -18,7 +18,7 @@
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel",
+    "web": "Microsoft.AspNet.Server.Kestrel"
   },
 
   "frameworks": {
@@ -29,7 +29,7 @@
         "Tasker.QuartzAdapter": "1.0.0-*",
         "Unity": "3.5.1404"
       }
-    },
+    }
   },
 
   "exclude": [

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net46": {
+      "wrappedProject": "../../Tasker.QuartzAdapter/Tasker.QuartzAdapter.csproj",
+      "bin": {
+        "assembly": "../../Tasker.QuartzAdapter/obj/{configuration}/Tasker.QuartzAdapter.dll",
+        "pdb": "../../Tasker.QuartzAdapter/obj/{configuration}/Tasker.QuartzAdapter.pdb"
+      },
+      "dependencies": {
+        "Common.Logging": "3.0.0",
+        "Common.Logging.Core": "3.0.0",
+        "Quartz": "2.3.3",
+        "Unity": "3.5.1404.0",
+        "Tasker.Common": "1.0.0-*"
+      }
+    }
+  }
+}

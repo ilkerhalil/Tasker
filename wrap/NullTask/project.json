@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net46": {
+      "wrappedProject": "../../NullTask/NullTask.csproj",
+      "bin": {
+        "assembly": "../../NullTask/obj/{configuration}/NullTask.dll",
+        "pdb": "../../NullTask/obj/{configuration}/NullTask.pdb"
+      },
+      "dependencies": {
+        "Tasker.Common": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using FluentAssertions;
 using Microsoft.Practices.Unity;
-using NullTask;
 using Tasker.Common.Abstraction;
 using Xunit;
 
@@ -12,15 +10,12 @@ namespace Tasker.QuartzAdapter.Specs
 {
     public class TaskSchedulerUnitySpec
     {
-
-
         private readonly ITaskScheduler _taskScheduler;
 
         public TaskSchedulerUnitySpec()
         {
             var container = UnityBootstrap.BuildUnityContainer().Value;
             _taskScheduler = container.Resolve<ITaskScheduler>();
-            
         }
 
         [Fact]
@@ -42,7 +37,6 @@ namespace Tasker.QuartzAdapter.Specs
             Assert.True(_taskScheduler.Tasks[0].ModuleParameters.Count > 0);
         }
 
-
         [Fact]
         public void StartContainerTask()
         {
@@ -51,10 +45,6 @@ namespace Tasker.QuartzAdapter.Specs
             reset.WaitOne(60.Seconds());
             var nextFireTime = _taskScheduler.Tasks.First().NextFireTime;
             Assert.NotEqual(nextFireTime,default(DateTime));
-            
         }
-
-
-
     }
 }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tasker.QuartzAdapter.Specs
 {
-    
+
     public class TaskSchedulerSpec
     {
         private readonly ITaskScheduler _taskScheduler;
@@ -24,7 +24,7 @@ namespace Tasker.QuartzAdapter.Specs
         }
 
         [Fact]
-        
+
         public void TaskArray()
         {
             Assert.True(_taskScheduler.Tasks.Any());
@@ -52,7 +52,7 @@ namespace Tasker.QuartzAdapter.Specs
             {
                 Assert.True(_scheduler.GetTriggerState(trigger.Key) == TriggerState.Normal);
             }
-           
+
         }
         [Fact]
         public void PauseTask()
@@ -65,12 +65,12 @@ namespace Tasker.QuartzAdapter.Specs
             }
         }
         [Fact]
-        public void StopTask()
+        public void ShutDownTask()
         {
             _taskScheduler.ShutDown();
             foreach (var trigger in ((QuartzTaskSchedulerImpl)_taskScheduler).JobDetails.SelectMany(jobDetail => jobDetail.Value))
             {
-                Assert.Throws<SchedulerException>(()=> _scheduler.GetTriggerState(trigger.Key) == TriggerState.None);
+                Assert.Throws<SchedulerException>(() => _scheduler.GetTriggerState(trigger.Key) == TriggerState.None);
             }
         }
     }

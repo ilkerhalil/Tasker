@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net46": {
+      "wrappedProject": "../../Tasker.Common/Tasker.Common.csproj",
+      "bin": {
+        "assembly": "../../Tasker.Common/obj/{configuration}/Tasker.Common.dll",
+        "pdb": "../../Tasker.Common/obj/{configuration}/Tasker.Common.pdb"
+      },
+      "dependencies": {
+        "Microsoft.Net.Compilers": "1.1.1"
+      }
+    }
+  }
+}
