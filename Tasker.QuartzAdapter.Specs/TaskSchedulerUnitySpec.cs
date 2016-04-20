@@ -37,14 +37,14 @@ namespace Tasker.QuartzAdapter.Specs
             Assert.True(_taskScheduler.Tasks[0].ModuleParameters.Count > 0);
         }
 
-        [Fact]
-        public void StartContainerTask()
-        {
-            _taskScheduler.StartTasks();
-            var reset = new ManualResetEvent(false);
-            reset.WaitOne(60.Seconds());
-            var nextFireTime = _taskScheduler.Tasks.First().NextFireTime;
-            Assert.NotEqual(nextFireTime.ToUniversalTime(),default(DateTime).ToUniversalTime());
-        }
+        //[Fact]
+        //public void StartContainerTask()
+        //{
+        //    _taskScheduler.StartTasks();
+        //    var reset = new ManualResetEvent(false);
+        //    reset.WaitOne(60.Seconds());
+        //    var nextFireTime = _taskScheduler.Tasks.First().NextFireTime;
+        //    Assert.NotEqual(nextFireTime.ToUniversalTime(),default(DateTime).ToUniversalTime());
+        //}
     }
 }
