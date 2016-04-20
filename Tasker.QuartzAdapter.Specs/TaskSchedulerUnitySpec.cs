@@ -44,7 +44,7 @@ namespace Tasker.QuartzAdapter.Specs
             var reset = new ManualResetEvent(false);
             reset.WaitOne(60.Seconds());
             var nextFireTime = _taskScheduler.Tasks.First().NextFireTime;
-            Assert.NotEqual(nextFireTime,default(DateTime));
+            Assert.NotEqual(nextFireTime.ToUniversalTime(),default(DateTime).ToUniversalTime());
         }
     }
 }
